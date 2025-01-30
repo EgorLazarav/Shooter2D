@@ -2,3 +2,4 @@ Move
 Attack
 params
 Reload
+2
