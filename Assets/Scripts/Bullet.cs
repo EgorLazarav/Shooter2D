@@ -5,7 +5,7 @@ using Zenject.SpaceFighter;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _timeToDestroy = 3f;
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float _speed = 10f;
     [SerializeField] private Rigidbody2D _rigidbody;
 
     public void Init(Transform parent)
@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         transform.parent = null;
 
-        _rigidbody.velocity = transform.right * speed;
+        _rigidbody.velocity = transform.right * _speed;
         StartCoroutine(DelayingDeactivate());
     }
 
