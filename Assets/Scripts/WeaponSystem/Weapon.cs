@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (_shootDelayingCoroutine != null || _reloadingCoroutine != null || _bulletsLeft == 0)
+        if (_shootDelayingCoroutine == null || _reloadingCoroutine != null || _bulletsLeft == 0)
             return;
 
         Bullet bullet = _bulletFactory.Get();
