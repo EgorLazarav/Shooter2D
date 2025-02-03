@@ -6,46 +6,53 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private int _clipCapacity = 30;
-    [SerializeField] private int _bulletsLeft = 30;
+    [SerializeField] private float _fireRate = 100;
+    [SerializeField] private float _reloadTime = 2;
+    
+    private int _bulletsLeft;
 
     private Coroutine _shootDelayingCoroutine;
+    private Coroutine _reloadingCoroutine;
     private BulletFactory _bulletFactory;
 
     [Inject]
     public void Construct(BulletFactory bulletFactory)
     {
         _bulletFactory = bulletFactory;
+        _bulletsLeft = _clipCapacity;
     }
 
     public void Shoot()
     {
-        if (_shootDelayingCoroutine != null)
+        if (_shootDelayingCoroutine != null || _reloadingCoroutine != null || _bulletsLeft == 0)
             return;
 
         Bullet bullet = _bulletFactory.Get();
         bullet.Init(_shootPoint);
+        _bulletsLeft--;
 
         _shootDelayingCoroutine = StartCoroutine(ShootDelaying());
     }
 
     private IEnumerator ShootDelaying()
     {
-        yield return new WaitForSeconds(0.5f);
+        float baseDelay = 100;
+
+        yield return new WaitForSeconds(baseDelay / _fireRate);
 
         _shootDelayingCoroutine = null;
     }
 
-    private void reold()
+    public void Reload()
     {
-        if (_clipCapacity == 0)
-        {
-            _clipCapacity =_clipCapacity + _bulletsLeft;
-        }
+        _reloadingCoroutine = StartCoroutine(Reloading());
     }
-    private IEnumerator Reold()
-    {
-        yield return new WaitForSeconds(2f);
 
-        _shootDelayingCoroutine = null;
+    private IEnumerator Reloading()
+    {
+        yield return new WaitForSeconds(_reloadTime);
+
+        _reloadingCoroutine = null;
+        _bulletsLeft = _clipCapacity;
     }
 }

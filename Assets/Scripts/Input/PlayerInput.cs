@@ -109,7 +109,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Reloud"",
+                    ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""19cfe5fe-5403-4cf9-9cd2-527f47db13cf"",
                     ""expectedControlType"": ""Button"",
@@ -137,7 +137,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Reloud"",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -158,7 +158,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_Shoot = m_Combat.FindAction("Shoot", throwIfNotFound: true);
-        m_Combat_Reloud = m_Combat.FindAction("Reloud", throwIfNotFound: true);
+        m_Combat_Reload = m_Combat.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -267,13 +267,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Combat;
     private List<ICombatActions> m_CombatActionsCallbackInterfaces = new List<ICombatActions>();
     private readonly InputAction m_Combat_Shoot;
-    private readonly InputAction m_Combat_Reloud;
+    private readonly InputAction m_Combat_Reload;
     public struct CombatActions
     {
         private @PlayerInput m_Wrapper;
         public CombatActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Shoot => m_Wrapper.m_Combat_Shoot;
-        public InputAction @Reloud => m_Wrapper.m_Combat_Reloud;
+        public InputAction @Reload => m_Wrapper.m_Combat_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -286,9 +286,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @Reloud.started += instance.OnReloud;
-            @Reloud.performed += instance.OnReloud;
-            @Reloud.canceled += instance.OnReloud;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(ICombatActions instance)
@@ -296,9 +296,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @Reloud.started -= instance.OnReloud;
-            @Reloud.performed -= instance.OnReloud;
-            @Reloud.canceled -= instance.OnReloud;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(ICombatActions instance)
@@ -332,6 +332,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface ICombatActions
     {
         void OnShoot(InputAction.CallbackContext context);
-        void OnReloud(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

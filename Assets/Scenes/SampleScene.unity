@@ -605,3 +605,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootPoint: {fileID: 933459520}
+  _clipCapacity: 5
+  _fireRate: 100
+  _reloadTime: 2

@@ -31,6 +31,11 @@ public class PlayerController : MonoBehaviour
         {
             _combat.Shoot();
         }
+
+        if (_input.Combat.Reload.triggered)
+        {
+            _combat.Reload();
+        }
     }
 
     private Vector3 GetInput()
