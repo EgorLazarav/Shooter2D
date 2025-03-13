@@ -1,22 +1,37 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat
 {
     private Weapon _currentWeapon;
+    private int _clipsCount;
+    private Transform _weaponPoint;
 
-    public void Init(Weapon startWeapon)
+    public Weapon CurrentWeapon => _currentWeapon;
+    public int ClipsCount => _clipsCount;
+
+    public PlayerCombat(Weapon startWeapon, int clipsCount, Transform weaponPoint)
     {
         _currentWeapon = startWeapon;
+        _clipsCount = clipsCount;
+        _weaponPoint = weaponPoint;
     }
 
-    public void Shoot()
+    public bool TryShoot()
     {
-        _currentWeapon.Shoot();
+        return _currentWeapon.TryShoot();
     }
 
-    public void Reload()
+    public bool TryReload()
     {
-        _currentWeapon.Reload();
+        if (_clipsCount == 0)
+            return false;
+
+        return _currentWeapon.TryReload();
+    }
+
+    public void UseClip()
+    {
+        _clipsCount--;
     }
 }

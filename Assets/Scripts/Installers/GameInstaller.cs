@@ -5,6 +5,6 @@ public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<BulletFactory>().AsSingle();
+        Container.Bind<BulletFactory>().AsSingle().NonLazy();
     }
 }

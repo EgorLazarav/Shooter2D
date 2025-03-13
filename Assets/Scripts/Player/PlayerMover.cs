@@ -2,27 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour
+public class PlayerMover
 {
-    private float _speed = 3;
+    private float _movementSpeed = 3;
+    private Transform _transform;
 
-    public void Init(float speed)
+    public PlayerMover(Transform transform, float movementSpeed)
     {
-        _speed = speed;
+        _transform = transform;
+        _movementSpeed = movementSpeed;
     }
 
     public void Move(Vector2 direction)
     {
-        Vector3 movePoint = transform.position + (Vector3)direction.normalized;
-        transform.position = Vector2.MoveTowards(transform.position, movePoint, _speed * Time.deltaTime);
+        Vector3 movePoint = _transform.position + (Vector3)direction.normalized;
+        _transform.position = Vector2.MoveTowards(_transform.position, movePoint, _movementSpeed * Time.deltaTime);
     }
 
     public void RotateToMouse()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-        Vector3 lookDirection = (mousePosition - transform.position).normalized;
+        Vector3 lookDirection = (mousePosition - _transform.position).normalized;
         float rotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        transform.eulerAngles = new Vector3(0, 0, rotationZ);
+        _transform.eulerAngles = new Vector3(0, 0, rotationZ);
     }
 }
