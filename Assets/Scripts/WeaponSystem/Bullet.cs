@@ -33,8 +33,9 @@ public class Bullet : MonoBehaviour
         if (collision.TryGetComponent(out IHealth health))
         {
             health.ApplyDamage(1);
-            gameObject.SetActive(false);
         }
+
+        gameObject.SetActive(false);
     }
 }
 
