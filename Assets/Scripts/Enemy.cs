@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IHealth
 {
     [SerializeField] private float _speed = 5;
+    [SerializeField] private NavMeshAgent _agent;
 
     [field: SerializeField] public float Max { get; private set; }
 
@@ -27,8 +29,16 @@ public class Enemy : MonoBehaviour, IHealth
             gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        FollowPlayer();
+    }
+
     private void FollowPlayer()
     {
         Transform target = FindObjectOfType<PlayerController>().transform;
+
+        if (target != null)
+            _agent.SetDestination(target.position);
     }
 }
