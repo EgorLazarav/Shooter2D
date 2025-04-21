@@ -12,7 +12,7 @@ public class GameBootstrapper : MonoBehaviour
         Weapon startWeapon = Instantiate(_startWeaponPrefab);
         PlayerController player = Instantiate(_playerPrefab);
         _mainCameraController.Init(player.transform);
-        _bulletsDisplay.Init(player);
+        // _bulletsDisplay.Init(player);
         player.Init(startWeapon, new BulletFactory());
     }
 }
