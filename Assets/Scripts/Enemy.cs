@@ -38,7 +38,13 @@ public class Enemy : MonoBehaviour, IHealth
     {
         Transform target = FindObjectOfType<PlayerController>().transform;
 
-        if (target != null)
-            _agent.SetDestination(target.position);
+        if (target == null)
+            return;
+
+        _agent.SetDestination(target.position);
+        Vector3 curretRotation = transform.eulerAngles;
+        curretRotation.x = 0;
+        curretRotation.y = 0;
+        transform.eulerAngles = curretRotation;
     }
 }
